@@ -1,0 +1,162 @@
+swagger: '2.0'
+info:
+  version: 1.0.1
+  title: Future App
+  description: The API for the Future Test Application
+
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/notebook:
+    get:
+      tags:
+      - Get All Contacts
+      description: returns all contacts
+      operationId: getContacts
+
+      responses:
+        200:
+          description: All contacts has been retrieved
+          schema:
+            type: array
+            items:
+              type: string
+              format: uri
+            
+    post:
+      tags:
+      - Register New Contact
+      operationId: register new contact
+      parameters:
+      - in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/ContactRegistrationInfo'
+      responses:
+        200:
+          description: Contact 
+
+  /api/notebook/{id}:
+    get:
+      tags:
+      - Get Contact
+      operationId: getContact
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      responses:
+        200:
+          description: "contact object from DB in json"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+    post:
+      tags:
+      - Edit Contact
+      description: editing contact
+      operationId: editContact
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - in: body
+        name: contact
+        required: true
+        schema:
+          $ref: '#/definitions/EditContactInfo'
+      responses:
+        200:
+          description: Contact has been edited successfully
+  
+    delete:
+      tags:
+      - Delete Contact
+      operationId: deleteContact
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      responses:
+        200:
+          description: Contact has been deleted successfully
+
+definitions:
+ 
+  ApiResponse:
+    type: object
+    properties:
+      fio:
+        type: string
+        example: Kate Portland
+      phone:
+        type: integer
+        example: 90
+      email:
+        type: string
+        example: waq@sed.it
+      birth_date:
+        type: string
+        example: '1990-07-09'
+      company_name:
+        type: string
+        example: DIY JSC
+      foto:
+        type: string
+        example: https://373819-1169963-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/08/stoicismquotes.jpg
+
+  ContactRegistrationInfo:
+    type: object
+    properties:
+      fio:
+        type: string
+        example: Kate Portland
+        required: true
+      phone:
+        type: integer
+        example: 90
+        required: true
+      email:
+        type: string
+        example: waq@sed.it
+        required: true
+      birth_date:
+        type: string
+        example: '1990-07-09'
+      company_name:
+        type: string
+        example: DIY JSC
+      foto:
+        type: string
+        example: https://373819-1169963-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/08/stoicismquotes.jpg
+  EditContactInfo:
+    type: object
+    properties:
+      fio:
+        type: string
+        example: John Portland
+      phone:
+        type: integer
+        example: 7
+      email:
+        type: string
+        example: w1q@sed.it
+      birth_date:
+        type: string
+        example: '1990-07-09'
+      company_name:
+        type: string
+        example: DIY JSC
+      foto:
+        type: string
+        example: https://373819-1169963-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/08/stoicismquotes.jpg
+
+schemes:
+ - http
+host: 127.0.0.1:8000
